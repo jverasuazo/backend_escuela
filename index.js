@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const app = express();
 const { Pool } = require('pg');
-const bcrypt = require('bcrypt');
 require('dotenv').config(); // Cargar variables de entorno desde .env
 
 app.use(cors());
