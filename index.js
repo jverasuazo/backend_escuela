@@ -4,21 +4,20 @@ const morgan = require('morgan');
 const app = express();
 const { Pool } = require('pg');
 const bcrypt = require('bcrypt');
-  
+require('dotenv').config(); // Cargar variables de entorno desde .env
+
 app.use(cors());
 app.use(morgan('combined'));
 app.use(express.json()); // Si deseas usar el método POST con cuerpo JSON.
 app.use(express.urlencoded({ extended: true })); // Para poder interpretar datos de formularios si lo necesitas.
- 
+
 const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: '010200',
-    database: 'escuela',
-    port: '5432', // El puerto predeterminado de PostgreSQL  
-  
-  });
- 
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT,
+});
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
