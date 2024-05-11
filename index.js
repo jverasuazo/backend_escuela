@@ -7,8 +7,8 @@ require('dotenv').config(); // Cargar variables de entorno desde .env
 
 app.use(cors());
 app.use(morgan('combined'));
-app.use(express.json()); // Si deseas usar el método POST con cuerpo JSON.
-app.use(express.urlencoded({ extended: true })); // Para poder interpretar datos de formularios si lo necesitas.
+app.use(express.json()); // Usar el método POST con cuerpo JSON.
+app.use(express.urlencoded({ extended: true })); // Para poder interpretar datos de formularios.
 
 const pool = new Pool({
     host: process.env.DB_HOST,
@@ -139,7 +139,7 @@ app.get('/all', (req, res) => {
         const userValid = await pool.query("SELECT * FROM usuario WHERE user_name = $1 and password = $2", [username,password]);
         if (userValid.rows.length > 0) { // Si encontramos el usuario y su clave nos logeamos
           const userData = userValid.rows[0];
-          // Aquí puedes seleccionar los campos específicos que deseas devolver en la respuesta
+          // Seleccionar los campos específicos que se desea devolver en la respuesta
           const { usuario_id, user_name, id_rol, nombre, apellido, email } = userData;
          
           res.json({ success: true, message: "Login exitoso" ,user: {
